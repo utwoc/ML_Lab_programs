@@ -1,0 +1,14 @@
+import pandas as pd
+import csv
+from pgmpy.estimators import MaximumLikelihoodEstimator
+from pgmpy.models import BayesianModel
+from pgmpy.inference import VariableElimination
+lines=list(csv.reader(open('data7_names11.csv','r')));
+attributes=lines[0]
+heartDisease=pd.read_csv('data7_heart1.csv',names=attributes)
+model=BayesianModel([('age','cp'),('heartdisease','chol')])
+model.fit(heartDisease,estimator=MaximumLikelihoodEstimator)
+HeartDisease_infer=VariableElimination(model)
+print('\n 1. Probability of HeartDisease given Age=28')
+q=HeartDisease_infer.query(variables=['heartdisease'],evidence={'age':28})
+print(q['heartdisease'])

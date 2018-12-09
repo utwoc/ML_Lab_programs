@@ -1,0 +1,33 @@
+import csv
+with open("tennis.csv","r") as f2:
+    l1=csv.reader(f2)
+    data_list=list(l1)
+specific=['0','0','0','0','0','0']
+G=[]
+for i in range(len(specific)):
+    l=[]
+    for j in range(len(specific)):
+        l.append('?')
+    G.append(l)     
+for i in range(len(data_list)):
+    if data_list[i][-1]=='Y':
+        for j in range(len(specific)):
+            if specific[j]=='0':
+                specific[j]=data_list[i][j]
+            if specific[j]!=data_list[i][j]:
+                specific[j]='?'
+    else:
+        for j in range(len(specific)):
+            if data_list[i][j]!=specific[j] and specific[j]!='?':
+                G[j][j]=specific[j]
+    print(i+1,"step")
+    print(specific)
+    print(G)
+
+g=[]
+for i in range(len(specific)):
+    if specific[i]==G[i][i] and specific[i]!='?':
+        g.append(G[i])
+print("final output is:")
+print(specific)
+print(g)

@@ -1,0 +1,15 @@
+import csv
+with open("tennis.csv","r") as f1:
+    l1=csv.reader(f1)
+    data_list=list(l1)
+hyp=['0','0','0','0','0','0']
+for i in range(len(data_list)):
+    if data_list[i][-1]=='Y':
+        for j in range(len(hyp)):
+            if hyp[j]=='0':
+                hyp[j]=data_list[i][j]
+            if hyp[j]!=data_list[i][j]:
+                hyp[j]='?'
+    print(hyp)
+print("final hypothysis:")
+print(hyp)
